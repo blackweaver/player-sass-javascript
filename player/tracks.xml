@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist>
+	<track name="A los pájaros que cantan sobre las selvas de Internet" id="01" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/a_los_pajaros_que_cantan_sobre_las_selvas_de_internet" cover="tracks/cover.jpg" />
+	
+	<track name="Beemedobleve" id="02" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/beemedobleve" cover="tracks/cover.jpg" />
+	
+	<track name="A la luz de la luna" id="03" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/a_la_luz_de_la_luna" cover="tracks/cover.jpg" />
+	
+	<track name="Las supersticiones traen mala suerte" id="01" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/las_supersticiones_traen_mala_suerte" cover="tracks/cover.jpg" />
+	
+	<track name="Amok! Amok!" id="04" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/amok_amok" cover="tracks/cover.jpg" />
+	
+	<track name="Chau Mohicano" id="05" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/chau_mhoicano" cover="tracks/cover.jpg" />
+	
+	<track name="Arca Monster" id="06" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/arca_monster" cover="tracks/cover.jpg" />
+	
+	<track name="Cada pequeña muerte" id="07" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/cada_pequena_suerte" cover="tracks/cover.jpg" />
+	
+	<track name="Babas del diablo" id="08" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/babas_del_diablo" cover="tracks/cover.jpg" />
+	
+	<track name="Había una vez..." id="09" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/habia_una_vez" cover="tracks/cover.jpg" />
+	
+	<track name="Un par de fantasmas" id="010" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/un_par_de_fantasmas" cover="tracks/cover.jpg" />
+	
+	<track name="La pajarita pechiblanca (scherzo)" id="11" album="Pajaritos bravos muchachitos" artist="Indio Solari" audio="tracks/la_pajarita_pechiblanca" cover="tracks/cover.jpg" />
+</playlist>

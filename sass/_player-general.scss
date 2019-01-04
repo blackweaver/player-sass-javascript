@@ -1,0 +1,252 @@
+/* Sass Document */
+
+body {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+}
+
+@font-face {
+   font-family: 'virgin';
+    src: url('fonts/icon.eot');
+    src: url('fonts/icon.eot?#iefix') format('embedded-opentype'),
+         url('fonts/icon.woff') format('woff'),
+         url('fonts/icon.ttf') format('truetype'),
+         url('fonts/icon.svg#icon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+@mixin font-smoothing($value: on) {
+    @if $value == on {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    @else {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+    }
+}
+
+@font-face {
+   font-family: 'open_light';
+    src: url('fonts/gotham.eot');
+    src: url('fonts/gotham.eot?#iefix') format('embedded-opentype'),
+         url('fonts/gotham.woff') format('woff'),
+         url('fonts/gotham.ttf') format('truetype'),
+         url('fonts/gotham.svg#gotham') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+   font-family: 'open';
+    src: url('fonts/gotham.eot');
+    src: url('fonts/gotham.eot?#iefix') format('embedded-opentype'),
+         url('fonts/gotham.woff') format('woff'),
+         url('fonts/gotham.ttf') format('truetype'),
+         url('fonts/gotham.svg#gotham') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.clearfix {
+	clear: both;
+	height: 0;
+	overflow: hidden;
+}
+.clearfix:before {
+	content: "";
+}
+
+@mixin set-images($img,$xpos,$ypos){
+	background: url($img) $xpos $ypos no-repeat;
+}
+
+$box_track_width: 150px;
+$playlist_width: 300px;
+$playlist_height: 400px;
+$dotted_height: 6px;
+$box_band_height: 60px;
+$box_track_height: 40px;
+$content_bars: 300px;
+$content_bars_small: 120px;
+
+$border_selected: 2px;
+$scroll_height: 13px;
+
+$white: white;
+$black: black;
+$color: white;
+$bg_color: #c5188d;
+$light_color: white;
+$color_violet_dark: #c5188d;
+$gray_light: white;
+$color_fucsia: #c5188d;
+$body_bg: #6e6e6e;
+
+/*#b5479d, #c5188d*/
+
+$media-width-small: 480px;
+$media-width-medium: 750px; 
+$media-width-big: 1024px;
+
+
+/* Etiqueta audio de HTML 5 --------------------------------------------------------- */
+
+audio {
+	margin: 0 auto;
+	display: none;
+}
+
+#mp4 {
+	margin: 0 auto;
+	display: none;
+}
+
+a {
+	color: $light_color;
+}
+
+.fix_float {
+	overflow: hidden;
+	height: 0;
+	clear: both;
+}
+
+.button {
+	display: block;
+	float: left;
+}
+
+#flashContent {
+	width:100%; text-align: center; height: 0; overflow: hidden;
+}
+
+.video {
+	width: 100%;
+	height: 100%;
+	text-height: 100%;
+	position: absolute;
+	z-index: 10000;
+	top: 0;
+	left: 0;
+
+	div {
+		@include opacity(0.5);
+		background: $body_bg;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		vertical-align: middle;
+	}
+
+	video {
+		max-width: 90%;
+		max-height: 90%;
+		position: relative;
+	}
+}
+
+.detect_player_drag {
+	@include opacity(0.8);
+}
+
+.player_box_track {
+
+	text-align: left;
+	width: 100%;
+	height: $box_track_height;
+	font-size: 0.6em;
+	padding: 0;
+	border-bottom: 1px solid shade($bg_color, 10%);
+	background: $color_fucsia;
+	box-sizing: content-box;
+
+	a {
+		color: $light_color;
+		text-decoration: none;
+		display: block;
+		height: $box_track_height;
+		text-align: right;
+
+		.bt_close {
+			width: $box_track_height;
+			height: $box_track_height;
+			line-height: $box_track_height;
+			display: none;
+			position: absolute;
+			z-index: 90;
+			margin-left: 80%;
+			cursor: pointer;
+			@include font-smoothing(on);
+			font-family: 'virgin';
+			text-align: center;
+			vertical-align: middle;
+			font-size: 3em;
+			&:before {
+				content: "h";
+			}
+		}
+
+		&:hover {
+			color: $light_color;
+
+			.bt_close {
+				display: block;
+			}
+		}
+
+		p {
+			margin: 0;
+			padding-top: 5px;
+			text-align: left;
+			color: adjust-lightness($bg_color, 30);
+			overflow: hidden; 
+			white-space: nowrap;
+
+			span {
+				font-size: 1.3em;
+				color: $color;
+				text-overflow: ellipsis;
+				display: block;
+				overflow: hidden; 
+				white-space: nowrap;
+			}
+		}
+
+		.icon {
+			float: left;
+			width: $box_track_height;
+			height: $box_track_height;
+			font-size: 3em;
+			color: adjust-lightness($bg_color, 30);
+			@include font-smoothing(on);
+			font-family: 'virgin';
+			text-align: center;
+			vertical-align: middle;
+			line-height: 39px;
+			&:before {
+				content: "L";
+			}
+		}
+	}
+}
+
+@media (max-width: $media-width-medium){
+	
+	.player_box_track {	
+		a {	
+			.bt_close {
+				margin-left: 85%;
+			}
+		}
+	}
+	
+}

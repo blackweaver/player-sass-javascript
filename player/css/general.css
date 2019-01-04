@@ -1,0 +1,62 @@
+/* Sass Document */
+/* line 5, ../sass/general.scss */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'bradesco';
+  src: url("fonts/bradesco.otf");
+  src: url("fonts/bradesco.eot?#iefix") format("embedded-opentype"), url("fonts/bradesco.svg#bradesco") format("svg"), url("fonts/bradesco.ttf") format("truetype");
+}
+
+/* Etiqueta audio de HTML 5 --------------------------------------------------------- */
+/* line 41, ../sass/general.scss */
+audio {
+  margin: 0 auto;
+  display: none;
+}
+
+/* line 46, ../sass/general.scss */
+body {
+  margin: 0;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  color: white;
+  background: black;
+  text-align: left;
+}
+
+/* line 55, ../sass/general.scss */
+a {
+  color: white;
+}
+
+/* line 59, ../sass/general.scss */
+.fix_float {
+  overflow: hidden;
+  height: 0;
+  clear: both;
+}
+
+/* line 65, ../sass/general.scss */
+.button {
+  font-size: 3em;
+  display: block;
+  float: left;
+}
+
+/* line 71, ../sass/general.scss */
+#flashContent {
+  width: 100%;
+  text-align: center;
+  height: 0;
+  overflow: hidden;
+}

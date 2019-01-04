@@ -1,0 +1,259 @@
+@mixin profile {
+	#section_profile {
+		
+		#header_playlist {
+			height: 210px;
+			padding: 2%;
+			
+			img {
+				float: left;
+				margin: 0 10px 10px 0;
+			}
+			
+			> div {
+				float: left;
+				max-width: 65%;
+				
+				h2 {
+					color: black;
+					width: 100%;
+					display: block;
+					padding: 0;
+					padding-bottom:  10px;
+					margin-top: 20px;
+					white-space: nowrap;
+					
+					font: {
+						size: 4em;
+					}
+				}
+				
+				input {
+					@include opacity(0);
+					position: absolute;
+					height: 50px;
+					width: 50%;
+				}
+				
+				> button {
+					/*background: $color_fucsia;*/
+					float: left;
+					margin-right: 20px;
+					
+					/*@include box-shadow($color_text_dark 2px 3px 0px);*/
+					
+					&:active {
+						/*@include box-shadow($color_text_dark 0px 0px 0px);*/
+						margin-top: 3px;
+						color: white;
+					}
+					
+					&:hover {
+						/*background: shade($color_fucsia, 20%) !important;*/
+					}
+				}
+				
+				> a {
+					float: left;
+					color: black;
+					line-height: 1em;
+					outline: none;
+					display: block;
+					@include font-smoothing(on);
+					
+					font: {
+						family: 'virgin';
+						size: 4.8em;
+					}
+				}
+				
+				.followers {
+					margin-top: 10px;
+					color: black;
+					
+					font: {
+						size: 1em;
+					}
+				}
+				
+				
+			}
+
+		}
+		
+		#info_user {
+			color: $color_text_dark;
+			width: 100%;
+			padding: 15px 0;
+			margin-bottom: 15px;
+			background: shade(white, 10%);
+			width: 100%;
+	
+			font: {
+				size: 1.6em;
+			}
+			
+			div {
+				margin: 0 auto;
+				width: 95%;
+				
+				h4 {
+					padding: 10px 0;
+					color: $color_fucsia;
+					
+					font: {
+						size: 1.2em;
+					}
+				}
+				
+				small {
+					width: 100%;
+					text-align: center;
+				}
+				
+				button {
+					/*background: $color_fucsia;*/
+					margin-top: 10px;
+					padding: 5px 10px;
+					
+					font: {
+						size: 1em;
+					}
+					
+					@include box-shadow($color_text_dark 2px 3px 0px);
+					
+					&:active {
+						margin-top: 13px;
+						color: white;
+					}
+					
+					&:hover {
+						/*background: shade($color_fucsia, 20%) !important;*/
+					}
+				}
+				
+			}
+	
+		}
+		
+		form {
+			width: 90%;
+			margin: 0 auto;
+			
+			input {
+				width: 100%;
+				margin-bottom: 10px;
+			}
+			
+			label {
+				color: $color_violet_dark;
+				display: block;
+				float: left;
+				margin-bottom: 10px;
+				margin-right: 15px;
+				
+				font : {
+					size: 1.5em;
+				}
+				
+				input {
+					width: auto;
+					margin-bottom: 0;
+					line-height: 2em;
+				}
+			}
+			
+			select {
+				width: 31.2%;
+				margin-right: 2%;
+				
+				&[name="b_year"] {
+					margin-right: 0;
+				}
+			}
+			
+			button {
+				width: 100%;
+				margin-top: 10px;
+				background: $color_violet;
+			}
+		}
+		
+		@media (max-width: $media-width-medium){
+			
+			#header_playlist {
+				height: auto;
+				text-align: center;
+				padding: 15px 0;
+			
+				img {
+					max-width: 90%;
+					float: none;
+				}
+				
+				> div {
+					float: none;
+					text-align: center;
+					max-width: 100%;
+					
+					h2 {
+						text-align: center;
+						padding: 0;
+						margin-top: 0;
+						
+						font: {
+							size: 3em;
+						}
+					}
+					
+					input {
+						width: 100%;
+						height: 40px;
+					}
+					
+					> button {
+						float: none;
+					}
+					
+					> a {
+						float: none;
+						width: 40px;
+						margin: 0 auto;
+					}
+					
+					.followers {
+						display: none;
+					}
+					
+					.tags_cloud {
+						margin: 0 auto;
+						margin-top: 10px;
+						width: 95%;
+						
+						a {
+							width: auto;
+						}
+					}
+					
+					.add_tag {
+						margin: 0 auto;
+						width: 95%;
+						
+						form {
+							input[type="text"] {
+								float: none;
+							}
+							
+							button {
+								float: none;
+							}
+								
+						}
+					}
+				}
+			}
+			
+		}
+		
+	}
+}

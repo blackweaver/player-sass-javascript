@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<title>Bacardi Radio</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css" media="screen">
+		html, body { height:100%; background-color: #ffffff;}
+		body { margin:0; padding:0; overflow:hidden; }
+		#flashContent { width:100%; height: 60px; text-align: left; background: black; text-align: center; }
+		</style>
+		<script type="text/javascript" src="swfobject.js"></script>
+		<script language="javascript">
+			function stopAudio(){
+				document.getElementById("mymovie").muteAudio();
+			}
+        </script>
+	</head>
+	<body>
+	  <div id="flashContent">
+			<script type="text/javascript">
+               var so = new SWFObject("bar.swf", "mymovie", "1100", "60", "10", "#000000");
+               so.write("flashContent");
+            </script>
+	  </div>
+			<p><a href="javascript:stopAudio()">Detener audio barra</a></p>
+	</body>
+</html>

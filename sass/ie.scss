@@ -1,0 +1,104 @@
+img, a, div { behavior: url(iepngfix.htc) }
+
+.player_box_track a .bt_close {
+    margin-left: -10px;
+}
+
+#player #content_player { width: 1024px; }
+
+.player_box_track a .bt_close {
+   display: block;
+}
+
+.container {
+	#content_menu {
+		width: 20% !important;
+		float: left;
+		#menu {
+			position: relative !important;
+		}
+	}
+
+	.col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-12, .row {
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	#sections {
+		width: 80% !important;
+		float: left;
+	}
+
+	#highlight {
+		.carousel-indicators {
+			li {
+				display: inline;
+			}
+		}
+	}
+
+	#sections {
+		#terms, #about, #user_profile, #signin, #faq, #news, #result, #error_404, #artist, #album {
+			.row {
+				padding-top: 20px !important;
+				box-sizing: inherit !important;
+				.col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-12 {
+					box-sizing: inherit !important;
+					float: left;
+					.box_text {
+						text-align: left;
+						overflow: hidden;
+					}
+				}
+				.col-sm-4 {
+					width: 29%;
+				}
+				.col-sm-5 {
+					width: 39%;
+				}
+				.col-sm-6 {
+					width: 49%;
+				}
+				.col-sm-7 {
+					width: 59%;
+				}
+				.col-sm-8 {
+					width: 69%;
+				}
+			}
+		}
+
+		#signin {
+			.row {
+				span {
+					line-height: 1em !important;
+				}
+			}
+		}
+	}
+
+	#top {
+		.col-sm-4 {
+			width: 33%;
+			padding: 0;
+			float: left;
+
+			#top_video, #top_music, #top_playlist {
+
+				.carousel-control {
+					&.left {
+						cursor: default;
+						filter: none;
+  						-ms-filter: none;
+					}
+					&.right {
+						cursor: default;
+						height: 0;
+						filter: none;
+  						-ms-filter: none;
+					}
+				}
+			}
+		}
+	}
+}

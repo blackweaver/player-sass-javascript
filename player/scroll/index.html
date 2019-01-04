@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Horizontal scroll</title>
+<style type="text/css">
+
+	body { margin: 0; }
+	#container_playlist { background: black; height: 100px; width: 100%; overflow: hidden; }
+	#playlist { background: green; height: 100px; }
+	.red { float: left; margin-left: 5px; text-align: center; vertical-align: middle; line-height: 100px; color: white; font-size: 1em; width: 100px; height: 100px; background: red; }
+	
+	#container_scroll { width: 100%; height: 20px; background: gray; }
+	#scrollbar { width: 0; height: 20px; background: black; position: absolute; }
+
+</style>
+<script type="text/javascript" src="../js/utilities.js"></script>
+</head>
+
+<body>
+<div id="container_playlist">
+    <div id="playlist">
+        <div class="red"><a rel="Da Vinci" href="javascript:;"></a></div>
+        <div class="red"><a rel="Miguel Angel" href="javascript:;"></a></div>
+        <div class="red"><a rel="Picasso" href="javascript:;"></a></div>
+        <div class="red"><a rel="El Greco" href="javascript:;"></a></div>
+        <div class="red"><a rel="Velazquez" href="javascript:;"></a></div>
+        <div class="red"><a rel="Mondrian" href="javascript:;"></a></div>
+        <div class="red"><a rel="Da Vinci" href="javascript:;"></a></div>
+        <div class="red"><a rel="Miguel Angel" href="javascript:;"></a></div>
+        <div class="red"><a rel="Picasso" href="javascript:;"></a></div>
+        <div class="red"><a rel="El Greco" href="javascript:;"></a></div>
+     
+    </div>
+</div>
+<div id="container_scroll">
+	<div id="scrollbar"></div>
+</div>
+<script type="text/jscript">
+
+	//Defino variables con los elementos a utilizar
+	var container_playlist = document.getElementById("container_playlist"); //Contenedor de la playlist
+	var playlist = document.getElementById("playlist"); //Bloque de la playlist con los temas
+	var container_scroll = document.getElementById("container_scroll"); //Contenedor de la barra de scroll
+	var scrollbar = document.getElementById("scrollbar"); //Barra de scroll
+	
+	//Cantidad de temas dentro de la playlist
+	var amount = playlist.getElementsByTagName("div").length;
+	//Margen de separación establecido entre temas
+	var margin = 5;
+	//Estado para hacer click en el fondo del scroll para avanzar (será anulado cuando haga click en la barra de scroll)
+	var status_scrollbar = true;
+	
+	//Cálculo de ancho de cada una de las cajitas de tracks
+	var box_w = getSize(playlist.getElementsByTagName("div")[0]).w;
+	//Ancho del contenedor de los tracks para posteriormente mover con el scroll
+	var playlist_w = (amount * (box_w + margin)) + margin;
+	//Ancho de la barra de scroll en relación al ancho del navegador y el ancho del contenedor de tracks
+	var scrollbar_w = getSize(container_playlist).w * (getSize(container_playlist).w / playlist_w);
+	
+	//Condicional para mostrar la barra de scroll en caso de ser necesario
+	if(getSize(container_playlist).w < playlist_w){
+		//Asigno ancho al contenedor de tracks
+		playlist.style.width = playlist_w + "px";
+		//Asigno ancho a la barra de scroll
+		scrollbar.style.width =  scrollbar_w + "px";
+		//Ejecuto los eventos para activar el scroll
+		setEventScroll();
+	}else{
+		//En caso de no necesitar scroll, lo oculto
+		container_scroll.style.display = "none";
+	}
+	
+	
+	//Cada vez que redimensiono la ventana del navegador necesito recalcular el scroll
+	window.onresize = function(){
+		box_w = getSize(playlist.getElementsByTagName("div")[0]).w;
+		playlist_w = (amount * (box_w + margin)) + margin;
+		scrollbar_w = getSize(container_playlist).w * (getSize(container_playlist).w / playlist_w);
+	
+		if(getSize(container_playlist).w < playlist_w){
+			playlist.style.width = playlist_w + "px";
+			scrollbar.style.width =  scrollbar_w + "px";
+			container_scroll.style.display = "block";
+			setEventScroll();
+		}else{
+			//Si al agrandar la ventana dejo de necesitar el scroll, anulo los eventos antes necesarios y oculto la barra
+			container_scroll.style.display = "none";
+			scrollbar.onmousedown = null;
+			document.onmouseup = null;
+			document.onmousemove = null;
+		}
+		//Reubico el scroll para que no se salga de la pantalla
+		if(getOffset(scrollbar).x > getOffset(container_scroll).x + getSize(container_scroll).w - getSize(scrollbar).w){
+			scrollbar.style.left = getOffset(container_scroll).x + getSize(container_scroll).w - getSize(scrollbar).w + "px";
+		}
+		//Establezco variables que almacenen la relación necesaria para desplazar la playlist con el scroll
+		movePlaylist();
+	}
+	
+	//Función que activa los eventos para el scroll
+	function setEventScroll(){
+		//Al bajar el ratón sobre la barra de scroll....
+		scrollbar.onmousedown = function(e){
+			e = e || window.event;
+			//Desactivo las acciones del fondo del scroll
+			status_scrollbar = false;
+			//Almaceno la posición del ratón en relación a la posición del scroll
+			var posinit = mouseCoords(e).x - getOffset(scrollbar).x;
+			document.onmousemove = function(e){
+				e = e || window.event;
+				//Almaceno objeto con la posición del ratón
+				var mousePos = mouseCoords(e);
+				//Limito el área de movimiento del scroll
+				if(getOffset(scrollbar).x >= 0 && getOffset(scrollbar).x <= getOffset(container_scroll).x + getSize(container_scroll).w - getSize(scrollbar).w){
+					//Lo posiciono según el ratón
+					scrollbar.style.left = mousePos.x - posinit + "px";
+					//Limito el área de movimiento del scroll; en caso de salirse lo reposiciono
+					if(getOffset(scrollbar).x < 0){
+						scrollbar.style.left = "0px";
+					}else if(getOffset(scrollbar).x > getOffset(container_scroll).x + getSize(container_scroll).w - getSize(scrollbar).w){
+						scrollbar.style.left = getOffset(container_scroll).x + getSize(container_scroll).w - getSize(scrollbar).w + "px";
+					}
+				}
+				//Desplazo la playlist según el scroll
+				movePlaylist();
+				
+				return false;
+			}
+			return false;
+		}
+		
+		//Evento para la bajada del ratón en el fondo del scroll....
+		container_scroll.onmousedown = function(e){
+			e = e || window.event;
+			//Si no estoy haciendo click en la barra de scroll...
+			if(status_scrollbar){
+				//Llevo la barra de scroll hacia donde hice click en el fondo dentro de los límites del navegador
+				if(mouseCoords(e).x < getSize(container_scroll).w - getSize(scrollbar).w){
+					scrollbar.style.left = mouseCoords(e).x + "px";
+				}else{
+					scrollbar.style.left = getSize(container_scroll).w - getSize(scrollbar).w + "px";
+				}
+				movePlaylist();
+			}
+		}
+		//Al levantar el ratón...
+		document.onmouseup = function(e){
+			//Vuelvo a activar los click sobre el fondo del scroll
+			status_scrollbar = true;
+			//Anulo el evento de movimiento del ratón
+			document.onmousemove = null;
+			return false;
+		}
+	}
+	
+	//Munción para desplazar la playlist según el scroll
+	function movePlaylist(){
+		//Espacio sobrante de la playlist en la pantalla
+		var spaceplaylist = getSize(playlist).w - getSize(container_playlist).w;
+		//Espacio libre de desplazamiento del scroll
+		var spacebar = getSize(container_scroll).w - getSize(scrollbar).w;
+		//Cálculo de multiplicador de relación para el desplazamiento de la playlist
+		var multiplier = spaceplaylist / spacebar;
+		
+		//Valor de la nueva posición
+		var position = Math.round(getOffset(scrollbar).x * multiplier * -1);
+		//Asigno la posición correcta de la playlist según el scroll
+		playlist.style.marginLeft =  position + "px";
+	}
+	
+</script>
+</body>
+</html>

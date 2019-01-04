@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Drag and Drop</title>
+<style type="text/css">
+
+	* {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		outline: none;
+	}
+	
+	.selected { background-color: gray; }
+	.unselected { background-color: black; }
+	
+	body { margin: 0; }
+	#green { width: 100%; background: green; height: 100px; }
+	
+	ul { margin: 50px 0 0 0; padding: 0; }
+	ul li { padding: 10px; width: 100%; color: white; background-color: black; font-family: calibri; border-bottom: solid 1px #555; }
+
+</style>
+<script type="text/javascript" src="../js/utilities.js"></script>
+</head>
+
+<body>
+<div id="green">
+
+</div>
+<ul>
+
+	<li title="Las supersticiones traen mala suerte 1|01|Pajaritos bravos muchachitos|Indio Solari|tracks/las_supersticiones_traen_mala_suerte|02|tracks/cover.jpg">Bohemian Rhapsody</li>
+    
+    
+    <li title="Las supersticiones traen mala suerte 2|03|Pajaritos bravos muchachitos|Indio Solari|tracks/las_supersticiones_traen_mala_suerte|04|tracks/cover.jpg">Creep</li>
+    
+    
+    <li title="Las supersticiones traen mala suerte 3|05|Pajaritos bravos muchachitos|Indio Solari|tracks/las_supersticiones_traen_mala_suerte 6|06|tracks/cover.jpg">Pasos al costado</li>
+    
+    
+    <li title="Las supersticiones traen mala suerte 4|07|Pajaritos bravos muchachitos|Indio Solari|tracks/las_supersticiones_traen_mala_suerte 8|08|tracks/cover.jpg">Verano del 57</li>
+    
+    
+    <li title="Las supersticiones traen mala suerte 5|09|Pajaritos bravos muchachitos|Indio Solari|tracks/las_supersticiones_traen_mala_suerte 10|10|tracks/cover.jpg">La hija del fletero</li>
+    
+    
+    <li title="Las supersticiones traen mala suerte 6|11|Pajaritos bravos muchachitos|Indio Solari|tracks/las_supersticiones_traen_mala_suerte 12|12|tracks/cover.jpg">Somebody to love</li>
+    
+</ul>
+<script type="text/jscript">
+	
+	var start = null;
+	var os = navigator.platform.toUpperCase().indexOf("MAC");
+	var tracks = new Array();
+	var element = document.getElementsByTagName("li");
+	
+	for(var i=0;i<element.length;i++){
+		element[i].selected = false;
+		var status = element[i].title.indexOf("|");
+		if(status){
+			element[i].start = i;
+			element[i].onmousedown = function(e){
+				e = e || window.event;
+				var key = false;
+				if(os != -1){
+					key = e.metaKey;
+				}else{
+					key = e.ctrlKey;
+				}
+				selectItem(this,key,e.shiftKey);
+				return false;
+			}
+		}
+	}
+	
+	function pushAll(){
+		tracks = new Array();
+		for(var i=0;i<element.length;i++){
+			if(element[i].className == "selected"){
+				track = element[i].title.split("|");
+				tracks.push(track);
+			}
+		}
+	}
+	
+	function addTrack(element){
+		element.className = "selected";
+		element.selected = true;
+	}
+	
+	function selectItem(btn,key,statusShift){
+		var statusbtn = btn.selected;
+		if(statusShift){
+			if(start != null){
+				if(start < btn.start){
+					for(var i=start;i<=btn.start;i++){
+						addTrack(element[i]);
+					}
+				}else{
+					for(var i=start;i>=btn.start;i--){
+						addTrack(element[i]);
+					}
+				}
+			}
+		}else{
+			
+			start = btn.start;
+			
+			if(!key){
+				for(var i=0;i<element.length;i++){
+					element[i].className = "unselected";
+					element[i].selected = false;
+				}
+			}
+			
+			if(!key){
+				btn.className = "unselected";
+				btn.selected = false;
+			}else{
+				btn.className = "selected";
+				btn.selected = true;
+			}
+			
+			if(!statusbtn){
+				btn.className = "selected";
+				btn.selected = true;
+			}else{
+				btn.className = "unselected";
+				btn.selected = false;
+			}
+		}
+		pushAll();
+		//console.log(tracks.length);
+	}
+	
+	function removeTrack(data1,data2){
+		for(var i=0;i<tracks.length;i++){
+			if(tracks[i][0] == data1 && tracks[i][1] == data2){
+				tracks.splice(i,1);
+			}
+		}
+	}
+	
+</script>
+</body>
+</html>

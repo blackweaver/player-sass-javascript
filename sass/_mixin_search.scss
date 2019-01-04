@@ -1,0 +1,1141 @@
+@mixin search {
+	#section_search {
+		
+		#header_playlist {
+			height: auto;
+			padding: 2% 0 0 2%;
+			background-color: $color_soft_grey;
+			transform: translateZ(0);
+			
+			#block_cover {
+				float: left;
+				margin: 0 10px 10px 0;
+				
+				div {
+					@include opacity(.5);
+					margin-left: auto; 
+					margin-right: auto;
+					width: 40px;
+					overflow: hidden;
+					
+					div {
+						background: black url(images/camera.png) no-repeat;
+						
+						@include border-radius(5px);
+						/*@include border-bottom-right-radius(5px);
+						@include border-bottom-left-radius(5px);*/ 
+						position: absolute;
+						width: 40px;
+						height: 40px;
+					}
+					
+					input {
+						background: black;
+						position: absolute;
+						width: 40px;
+						height: 40px;
+						@include opacity(0);
+					}
+				}
+				
+				img {
+					overflow: hidden;
+				}
+				
+				p {
+					text-align: left;
+					color: $color_text_dark;
+					line-height: 1.2em;
+					background: white;
+					padding: 4px;
+					
+					span {
+						color: black;
+					}
+					
+					font: {
+						size: 1.1em;
+					}
+					
+					a {
+						color: $color_violet_dark;
+						text-decoration: underline;
+						
+						&:hover {
+							color: $color_text_dark;
+						}
+					}
+				}
+			}
+			
+			#block_data {
+				float: left;
+				max-width: 65%;
+				
+				h2 {
+					
+					width: 100%;
+					display: block; 
+					padding: 0;
+					padding-bottom:  10px;
+					margin-top: 20px;
+					white-space: nowrap;
+					color: black;
+					text-overflow: ellipsis;
+					
+					span {
+						color: black;
+						
+						font: {
+							size: 1em;
+						}
+					}
+					
+					font: {
+						size: 3.5em;
+					}
+					
+					a {
+						@include border-radius(4px);
+						border: none;
+						background: $color_fucsia;
+						padding: 2px 5px;
+						color: black;
+						outline: none;
+						/*vertical-align: top;*/
+						
+						font: {
+							size: .3em;
+							weight: normal;
+						}
+						
+						span {
+							padding: 0 5px 0 0;
+							color: black;
+							vertical-align: sub;
+							
+							font: {
+								size: 1.8em !important;
+								family: 'virgin';
+							}
+						}
+						
+						&:hover {
+							background: shade($color_fucsia, 20%) !important;
+						}
+
+					}
+				}
+				
+				h4 {
+					padding-bottom: 10px;
+					
+					a {
+						color: adjust-lightness(black, 30); 
+						font: {
+							size: 2em;
+						}
+						
+						&:hover {
+							color: #027c88;
+						}
+					}
+				}
+				
+				h5 {
+					padding: 0 0 10px 0;
+					color: $color_text;
+					
+					font: {
+						size: 1.2em;
+					}
+
+				}
+				
+				.pack_button {
+					
+					width: 210px;
+					float: left;
+				
+					> button {
+						/*background: $color_fucsia;*/
+						@include border-top-right-radius(0);
+						@include border-bottom-right-radius(0);
+						/*border-right: solid 1px adjust-lightness($color_fucsia, 10); */
+						float: left;
+						line-height: 1.6em;
+						
+						/*@include box-shadow($color_text_dark 2px 3px 0px);*/
+					
+						&:active {
+							/*@include box-shadow($color_text_dark 0px 0px 0px);*/
+							margin-left: 2px;
+							margin-top: 3px;
+						}
+						
+						&.bt_top {
+							@include border-radius(6px);
+							border: none;
+						}
+					}
+					
+					&.short {
+						width: 160px;
+					}
+					
+					> a {
+						@include border-radius(6px);
+						@include border-top-left-radius(0);
+						@include border-bottom-left-radius(0);
+						border-left: solid 1px shade($color_fucsia, 10%);
+						padding: 4px 10px 0 10px;
+						color: white;
+						@include background-image(linear-gradient(to bottom, $color_fucsia, #027c88));
+						float: left;
+						line-height: 1.02em;
+						outline: none;
+						display: block;
+						/*@include text-shadow(rgba(black, 0.4) 1px 1px 0);*/
+						
+						@include font-smoothing(on);
+						
+						font: {
+							family: 'virgin';
+							size: 3.6em;
+						}
+						
+						&.favorite-album {
+							color: adjust-lightness($color_fucsia, 30);
+						}
+						
+						&.active {
+							color: #027c88;
+						}
+						
+						/*@include box-shadow($color_text_dark 2px 3px 0px);*/
+					
+						&:active {
+							/*@include box-shadow($color_text_dark 0px 0px 0px);*/
+							margin-top: 3px;
+							color: white;
+						}
+						
+						&:hover {
+							/*background: shade($color_fucsia, 30%) !important;*/
+							@include background-image(linear-gradient(to top, $color_fucsia, #027c88));
+						}
+					}
+					
+				}
+				
+				.add_tag {
+					
+					margin-top: 10px;
+					
+					form {
+						
+						width: 195px;
+						margin: 0;
+						padding: 0;
+						float: left;
+						
+						input[type="text"] {
+							float: left;
+							color: $color_text_dark;
+							width: 153px;
+							padding: 6px;
+							@include border-radius(5px);
+							@include border-top-right-radius(0);
+							@include border-bottom-right-radius(0);
+							border: none;
+							border: solid 1px $color_soft_grey;
+							
+							font: {
+								size: 1.2em;
+							}
+						}
+						
+						button {
+							padding: 4px 0 5px 0;
+							text-align: center;
+							width: 40px;
+							float: left;
+							/*background: $color_text_dark;*/
+							margin: 0;
+							@include border-radius(5px);
+							@include border-top-left-radius(0);
+							@include border-bottom-left-radius(0);
+							
+							font: {
+								size: 1.5em;
+							}
+						}
+					}
+				}
+				
+				.tags_cloud { 
+					margin-top: 10px;
+					
+					a {
+						display: block;
+						float: left;
+						padding: 2px 8px;
+						color: white;
+						@include border-radius(5px);
+						margin: 0 5px 5px 0;
+						background: $color_text;
+						
+						span {
+							padding-left: 3px;
+							&:hover {
+								color: shade(white, 20%);
+							}
+						}
+						
+						font: {
+							size: 1.2em;
+							family: 'open', Arial, serif;
+						}
+						
+						&:hover {
+							background: adjust-lightness($color_text,20);
+						}
+					
+					}
+				}
+			}
+			
+			&.height_album {
+				height: 280px;
+				background: url(images/bg_album.png) 0 0 repeat-x;
+				
+				h2 {
+					span {
+						color: white !important;
+					}
+				}
+			}
+			
+			&.height_user {
+				height: auto;
+				/*background: $color_fucsia;*/
+				padding: 0;
+				margin-bottom: 10px;
+				
+				img {
+					width: 50px;
+					height: 50px;
+				}
+				
+				#block_cover {
+					margin: 10px;
+				}
+				
+				#block_data {
+					margin: 10px;
+					margin-left: 0;
+					
+					h2 {
+						margin: 0;
+						color: $color_violet_dark;
+						
+						font: {
+							size: 2em;
+						}
+					}
+					
+					h4 {
+						margin: 0;
+						color: $color_violet_dark;
+						
+						font: {
+							size: 1em;
+						}
+					}
+				}
+			}
+		}
+		
+		h2 {
+			color: $color_violet_dark;
+			padding-left: 20px;
+			
+			font: {
+				size: 2.5em;
+			}
+			
+			span {
+				color: $color_text_dark;
+				
+				font: {
+					size: .6em;
+				}
+			}
+		}
+		
+		.favorite-artist {
+			color: $color_soft_grey;
+			line-height: 0.8em;
+			outline: none;
+			@include font-smoothing(on);
+			
+			font: {
+				family: 'virgin';
+				size: 4.5em;
+			}
+			
+			&.active {
+				color: #027c88;
+			}
+		}
+		
+		.tags_cloud {
+			width: 95%;
+			margin: 0 auto;
+			
+			a {
+				display: block;
+				float: left;
+				padding: 2px 12px;
+				/*color: white;*/
+				color: white;
+				border: none;
+				@include border-radius(4px);
+				@include border-bottom-left-radius(0px);
+				@include border-top-right-radius(0px);
+				margin: 0 5px 5px 0;
+				outline: none;
+				background: adjust-lightness($color_text,20);
+				
+				span {
+					&:hover {
+						color: $color_fucsia;
+					}
+				}
+				
+				font: {
+					size: 1.5em;
+					family: 'open', Arial, serif;
+				}
+				
+				&:hover {
+					background: #027c88;
+				}
+			
+			}
+		}
+		
+		.title_band {
+			margin-top: 15px;
+			
+			h3 {
+				color: white;
+				padding: 10px 20px;
+				float: left;
+				display: block;
+				background: #027c88;
+				
+				font: {
+					size: 2em;
+				}
+			}
+			
+			a {
+				color: $color_text;
+				display: block;
+				float: right;
+				text-align: right;
+				padding: 10px 20px;
+				
+				font: {
+					size: 1.8em;
+				}
+				
+				&:hover {
+					color: $color_violet_dark;
+				}
+			}
+			
+			select {
+				color: $color_text;
+				float: right;
+				margin: 10px;
+				padding: 0;
+				
+				font: {
+					size: 1.8em;
+				}
+			}
+			
+		}
+		
+		.box {
+			a {
+				float: left;
+				width: 25%;
+				text-align: center;
+				overflow: hidden;
+				outline: none;
+				overflow: hidden; 
+				white-space: nowrap; 
+				display: block;
+				min-height: 150px;
+				
+				font: {
+					size: 1.5em;
+				}
+				img {
+					margin-top: 10px;
+					max-width: 95%;
+					min-height: 150px;
+				}
+				span {
+					display: none;
+				}
+				
+				&:hover {
+					img {
+						@include opacity(.7);
+					}
+				}
+			}
+		}
+		
+		&.finder {
+			.box {
+				a {
+					width: 12.5%;
+					min-height: auto;
+					font: {
+						size: 1em;
+					}
+					img {
+						max-width: 90%;
+						min-height: auto;
+					}
+				}
+			}
+		}
+		
+		#content_artist_cover {
+			
+			width: 50%;
+			float: left;
+			text-align: center;
+			
+			img {
+				width: 95%;
+			}
+			
+		}
+		
+		#content_artist_tracks {
+			width: 50%;
+			float: right;
+			text-align: center;
+			
+			#artist_tracks_header {
+				
+				width: 95%;
+				margin: 20px auto 0 auto;
+				
+				h3 {
+					color: $color_violet_dark;
+					width: 50%;
+					float: left;
+					text-align: left;
+					margin-bottom: 0;
+					
+					font: {
+						size: 2em;
+					}
+				}
+				
+				button {
+					float: right;
+					padding: 2px 8px;
+					/*background: $color_fucsia;*/
+					
+					font : {
+						size: 1.6em;
+					}
+					
+					span {
+						font : {
+							family: 'virgin';
+						}
+					}
+				}
+			}
+			
+			table {
+				width: 95%;
+				margin: 0 auto;
+				margin-bottom: 10px;
+				
+				th {
+					font-weight: normal;
+				}
+			}
+			
+			.footer_artist {
+				text-align: right;
+				width: 95%;
+			}
+		}
+		
+		#content_artist_albums {
+			
+			width: 50%;
+			float: left;
+			
+			h3 {
+				color: $color_violet_dark;
+				margin-bottom: 0;
+				padding: 20px 10px 10px 10px;
+				
+				font: {
+					size: 2em;
+				}
+			}
+			
+			#artist_albums {
+				.box {
+					a {
+						width: 50%;
+					}
+				}
+			}
+			
+		}
+		
+		#content_artist_news {
+			
+			width: 50%;
+			float: left;
+			margin-bottom: 20px;
+			
+			h3 {
+				color: $color_violet_dark;
+				margin-bottom: 0;
+				padding: 20px 10px 10px 10px;
+				
+				font: {
+					size: 2em;
+				}
+			}
+			
+			#artist_news {
+				
+				width: 90%;
+				margin: 0 auto 10px auto;
+				
+				.artist_new {
+					
+					color: $color_text;
+					
+					font : {
+						size: 1.3em;
+					}
+					
+					h4 {
+						color: $color_violet_dark;
+						padding: 10px 0;
+						
+						font : {
+							size: 1.4em;
+						}
+						
+						a {
+							&:hover {
+								color: adjust-lightness($color_text_dark,30);
+							}
+						}
+					}
+					
+					p {
+						text-transform: lowercase;
+						
+						a {
+							img {
+								width: 50px;
+								height: 50px;
+								margin: 0 5px 5px 0;
+								float: left;
+							}
+							
+							&:hover {
+								color: adjust-lightness($color_text_dark,30);
+								text-decoration: none;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		.footer_artist {
+			text-align: center;
+			margin: 20px 0;
+			
+			a {
+				color: $color_text;
+				
+				font: {
+					size: 1.3em;
+				}
+				
+				&:hover {
+					color: $color_violet_dark;
+				}
+			}
+		}
+		
+		.without_results {
+			width: 90%;
+			color: adjust-lightness($color_text_dark, 30); 
+			margin: 0 auto;
+			text-align: center;
+			
+			font: {
+				size: 1.5em;
+			}
+		}
+		
+		table {
+			width: 100%;
+			border: 0;
+			border-spacing: 0;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+			overflow: hidden; 
+			white-space: nowrap;
+			table-layout: fixed;
+			
+			tr {
+				color: $color_text_dark;
+				text-align: left;
+				line-height: 2.5em;
+				height: 2.5em;
+				overflow: hidden;
+				border-bottom: solid 1px white;
+				
+				font: {
+					size: 1.2em;
+				}
+				
+				&.active {
+					color: white;
+					background: $color_fucsia; 
+				}
+				
+				&:nth-child(2n){
+					background: $color_tr;
+				}
+				
+				&:first-child.drag {
+					border-bottom: 1px solid $color_fucsia;
+				}
+				
+				&.drag {
+					td {
+						border-bottom: 1px solid $color_fucsia; 
+					}
+				}
+				
+				td {
+					padding: 0;
+					overflow: hidden;
+					
+					&:last-child {
+						width: 60px;
+						
+						font: {
+							size: .8em;
+						}
+					}
+					
+					&:first-child {
+						text-align: center;
+						@include font-smoothing(on);
+						width: 150px;
+						
+						font: {
+							size: 2.5em;
+							family: 'virgin';
+						}
+						
+						a {
+							color: $color_text_dark;
+							display: block;
+							padding: 5px 0;
+							float: left;
+							text-align: center;
+							width: 33%;
+							outline: none;
+							
+							&:first-child {
+								color: $color_text_dark;
+							}
+							
+							&:last-child {
+								/*padding-left: 0;*/
+								/*text-align: left;*/
+							}
+							
+							&.active {
+								color: $color_fucsia; 
+							}
+							
+							&.delete_track_into {
+								color: $color_text_dark;
+								padding-right: 20px;
+							}
+							
+						}
+						
+						a.favorite {
+							@include opacity(.5);
+						}
+						
+						a.active {
+							@include opacity(1);
+						}
+						
+						.popover {
+							.popover-content {
+								ul {
+									li {
+										list-style: none;
+										
+										a {
+											color: white;
+											float: none;
+											text-align: left;
+											width: 100%;
+											padding: 0;
+											display: list-item;
+										}
+									}
+								}
+							}
+						}
+					}
+					
+					.open_section {
+						text-decoration: underline;
+					}
+					
+					&.without_results {
+						width: auto;
+						color: $color_text_dark;
+						text-align: center;
+						background: white;
+						
+						font: {
+							family: 'open', Arial, serif;
+							size: 1.5em;
+						}
+					}
+					
+					&:last-child {
+						text-align: center;
+					}
+				}
+				
+				th {
+					font-weight: bold;
+					text-transform: uppercase;
+					color: $color_text_dark;
+					padding: 5px 0;
+					
+					&:last-child {
+						width: 60px;
+					}
+					
+					&:first-child {
+						width: 100px;
+					}
+					
+					&:last-child {
+						text-align: center;
+					}
+					
+					a {
+						outline: none;
+						span {
+							text-transform: lowercase;
+							padding: 0 3px;
+							color: $color_soft_grey;
+							/*display: none;*/
+							line-height: 1em;
+							
+							&.colored {
+								color: $color_fucsia;
+							}
+							
+							font: {
+								size: 1.8em;
+								family: 'virgin';
+							}
+						}
+						
+						&:focus {
+							color: $color_text; 
+						}
+
+					}
+				}
+			}
+			
+			&.playlist {
+				tr {
+					td {
+						&:first-child {
+							width: 150px;
+							a {
+								width: 25%;
+							}
+						}
+					}
+					
+					th {
+						&:first-child {
+							width: 150px;
+						}
+					}
+				}
+			}
+			
+		}
+		
+		
+		@media (max-width: $media-width-medium){
+			
+			#header_playlist {
+				height: auto;
+				text-align: center;
+				padding: 15px 0;
+				
+				&.height_album {
+					height: auto;
+				}
+			
+				#block_cover {
+					float: none;
+					width: 50%;
+					text-align: center;
+					margin: 0 auto;
+					
+					img {
+						max-width: 80%;
+					}
+					
+					p {
+						background: none;
+						display: none;
+					}
+				}
+				
+				#block_data {
+					float: none;
+					text-align: center;
+					max-width: 100%;
+					
+					h2 {
+						text-align: center;
+						padding: 0;
+						margin-top: 10px;
+						
+						font: {
+							size: 3em;
+						}
+						
+						span {
+							font: {
+								size: .8em;
+							}
+						}
+					}
+					
+					.followers {
+						display: none;
+					}
+					
+					.pack_button {
+						float: none;
+						margin: 0 auto;
+						
+						> button {
+							
+							&.bt_top {
+								width: 100%;
+							}
+							
+							font: {
+								size: 2.3em;
+							}
+						}
+						
+						> a {
+							font: {
+								size: 4.6em;
+							}
+
+						}
+					}
+					
+					
+					.tags_cloud {
+						margin: 0 auto;
+						margin-top: 10px;
+						width: 50%;
+						
+						a {
+							width: auto;
+							
+							font: {
+								size: 1.5em;
+							}
+						}
+					}
+					
+					.add_tag {
+						
+						form {
+							
+							float: none;
+							margin: 0 auto;
+							
+							input[type="text"] {
+								
+								font: {
+									size: 1.4em;
+								}
+							}
+							
+							button {
+								font: {
+									size: 1.8em;
+								}
+							}
+							
+						}
+						
+					}
+				}
+				
+				&.height_user {
+					
+					#block_cover {
+						width: auto;
+						float: left;
+						margin: 10px;
+						
+						img {
+							max-width: 100%;
+						}
+					}
+					
+					#block_data {
+						width: auto;
+						float: left;
+						
+						h2 {
+							text-align: left;
+						}
+						
+						h4 {
+							text-align: left;
+						}
+					}
+				}
+			}
+			
+			.box {
+				a {
+					width: 50%;
+					/*height: 150px;*/
+					
+					font: {
+						/*size: .9em;*/
+					}
+				}
+			}
+			
+			#content_artist_cover {
+			
+				width: 100%;
+				float: none;
+				
+				img {
+					width: 60%;
+				}
+				
+			}
+			
+			#content_artist_tracks {
+				
+				width: 100%;
+				float: none;
+				text-align: center;
+				
+			}
+			
+			#content_artist_albums {
+			
+				width: 100%;
+				float: none;
+				
+				#artist_albums {
+					.box {
+						a {
+							img {
+								min-height: 80px;
+							}
+						}
+					}
+				}
+				
+			}
+			
+			#content_artist_news {
+				
+				width: 100%;
+				float: none;
+				
+			}
+			
+			table {
+				tr {
+					td+td, th+th {
+						width: 30%;
+					}
+					
+					td, th {
+						&:first-child {
+							width: 125px;
+							font: {
+								size: 4.5em;
+							}
+						}
+					}
+					
+					td+td, th+th {
+						width: 70%;
+						
+						font: {
+							size: 1.5em;
+						}
+					}
+					
+					td+td+td, th+th+th {
+						display: none;
+					}
+				}
+			}
+			
+		}
+		
+	}
+}

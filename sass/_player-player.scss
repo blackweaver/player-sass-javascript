@@ -1,0 +1,627 @@
+#player {
+	
+	display: none;
+	width: 100%;
+	/*min-width: 480px;*/
+	height: $box_band_height;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	font-size: 1.3em;
+	font-family: 'open';
+	z-index: 500;
+	color: $light_color;
+  
+	#content_player {
+		
+		a {
+			text-decoration: none;
+			outline: none;
+		}
+	
+		width: 100%;
+		max-width: 1423px;
+		margin: 0 auto;
+		height: $box_band_height;
+		text-align: left;
+		overflow: hidden;
+		@include background-image(linear-gradient(to bottom, #b5479d, #c5188d));
+		
+		#player_content_cover_name {
+			width: 20%;
+			min-width: 250px;
+			max-width: 285px;
+			height: $box_band_height;
+			float: right;
+			@include background-image(linear-gradient(to bottom, #b5479d, #c5188d));
+			
+			#player_track_name {
+				width: 70%;
+				padding-top: 5px;
+				font-size: 1em;
+				text-align: center;
+				line-height: 1.3em;
+				float: right;
+				cursor: pointer;
+				
+				span {
+					color: adjust-lightness($bg_color, 30);
+					font-size: .8em;
+				}
+			}
+			
+			#player_cover_small {
+				width: 20%;
+				max-width: $box_band_height;
+				/*height: $box_band_height;*/
+				float: right;
+				cursor: pointer;
+			}
+			
+			#player_track_list_arrows {
+				width: 10%;
+				height: $box_band_height;
+				line-height: $box_band_height;
+				vertical-align: middle;
+				overflow: hidden;
+				text-decoration: none;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				font-size: 3em;
+				outline: none;
+				color: $light_color;
+				float: left;
+				text-align: center; 
+				
+				&:before {
+					content: "e";
+				}
+				
+				&:hover {
+					color: $color;
+				}
+			}
+			
+			#player_track_list_arrows.switch {
+				&:before {
+					content: "f";
+				}
+			}
+			
+		}
+		
+		#left_buttons {
+			width: 130px;
+			height: $box_band_height;
+			float: left;
+			margin: 0 20px;
+			/*margin-left: (100% / 12) * 3;*/
+			
+			#player_preloader {
+				position: absolute;
+				z-index: 5000;
+				margin-left: 34px;
+				bottom: 0;
+				width: $box_band_height;
+				height: $box_band_height;
+				display: none;
+				@include opacity(0.5);
+				background: $white url(http://www.vivetumusica.com.mx/templates/images/loading.gif) center center no-repeat;
+				
+				&.loading {
+					display: block;
+				}
+			}
+			
+			#player_init {
+				@extend .button;
+				width: 40px;
+				height: $box_band_height;
+				/*margin-top: 4px;*/
+				line-height: $box_band_height * 1;
+				text-align: left;
+				overflow: hidden;
+				color: $color;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				font-size: 4em;
+				&:before {
+					content: "D";
+				}
+			}
+			#player_init.switch {
+				color: adjust-lightness(#c5188d,30);
+			}
+			
+			#player_play {
+				@extend .button;
+				text-align: center;
+				width: 50px;
+				height: $box_band_height;
+				overflow: hidden;
+				line-height: $box_band_height * 1.4;
+				color: $color;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				font-size: 5.2em;
+				&:before {
+					/*content: "A";*/
+				}
+				
+				#stage_play {
+					background-color: transparent !important;
+					#stage_play_play {
+						background-color: transparent !important;
+						background-image: url("http://www.vivetumusica.com.mx/templates/images/triangle.svg"); 
+					}
+				}
+				
+			}
+			#player_play.switch {
+				&:before {
+					/*content: "B";*/
+				}
+			}
+			#player_play.switchmute {
+				color: adjust-lightness(#c5188d,30);
+				
+				#stage_play {
+					div+div {
+						background: $gray_light !important;
+					}
+				}
+			}
+				
+			#player_end {
+				@extend .button;
+				width: 40px;
+				height: $box_band_height;
+				float: right;
+				/*margin-top: 4px;*/
+				line-height: $box_band_height * 1;
+				color: $color;
+				text-align: right;
+				overflow: hidden;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				font-size: 4em;
+				&:before {
+					content: "C";
+				}
+			}
+			#player_end.switch {
+				color: adjust-lightness(#c5188d,30);
+			}
+		}
+		
+		#content_bars {
+			width: $content_bars;
+			height: $box_band_height;
+			margin-left: 10px;
+			float: left; 
+			
+			#player_back_track, #player_front_track, #player_loader_track {
+				width: $content_bars - 8;
+				@include border-radius(2px);
+				height: 6px;
+				position: absolute;
+				margin-top: 30px;
+				overflow: hidden;
+				background-color: $gray_light;
+			}
+			
+			#player_front_track {
+				width: 0;
+				background-color: $color;
+				cursor: pointer;
+			}
+			
+			#player_loader_track {
+				width: 0;
+				background-color: adjust-lightness($bg_color, 40);
+				cursor: pointer;
+			}
+			
+			#player_back_track {
+				background-color: adjust-lightness($bg_color, 20);
+			}
+			
+			#player_time {
+				width: 30px;
+				font-size: 0.8em;
+				vertical-align: middle;
+				text-align: center;
+				position: absolute;
+				margin-top: 42px;
+			}
+			#player_time.switchmute {
+				display: none;
+			}
+			
+			/* Tiempo total del track --------------------------------------------------------- */
+			 
+			#player_track_time {
+				width: 30px;
+				font-size: 0.8em;
+				vertical-align: middle;
+				text-align: center;
+				position: absolute;
+				margin-top: 42px;
+				margin-left: $content_bars - 30;
+			}
+			#player_track_time.switchmute {
+				display: none;
+			}
+			
+			#player_dial_track {
+				@include opacity(0);
+				width: 8px;
+				height: 18px;
+				position: absolute;
+				margin-top: 21px;
+				cursor: pointer; 
+				@include border-radius(3px);
+				background-color: $light_color;
+			}
+			
+		}
+		
+		/* Barra de volumen --------------------------------------------------------- */
+		
+		#content_volume {
+			width: 90px;
+			height: $box_band_height;
+			float: left; 
+			margin-left: 10px;
+			
+			#player_speaker {
+				@extend .button;
+				width: 30px;
+				height: 40px;
+				line-height: 40px;
+				vertical-align: middle;
+				margin-top: 12px;
+				overflow: hidden;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				font-size: 2.8em;
+				cursor: pointer;
+				color: $light_color;
+				&:before {
+					content: "Y";
+				}
+			}
+			#player_speaker.switch {
+				&:before {
+					content: "Z";
+				}
+			}
+			#player_speaker.switchmute {
+				color: adjust-lightness(#c5188d,30);
+			}
+			
+			#player_volume_bar {
+				width: 60px;
+				float: right;
+			}
+			
+			#player_front_volume, #player_back_volume {
+				width: 60px;
+				@include border-radius(2px);
+				height: 6px;
+				position: absolute;
+				margin-top: 30px;
+				overflow: hidden;
+				cursor: pointer;
+				background-color: adjust-lightness($bg_color, 40);
+				/*background-image: url(https://s3.amazonaws.com/virginmusic/images/bg_dotted.png);*/
+			}
+			
+			#player_back_volume {
+				background-color: adjust-lightness($bg_color, 20);
+				/*background-position: left bottom;*/
+			}
+			
+			#player_front_volume {
+				background-color: $color;
+				/*background-position: left top;*/
+			}
+			#player_front_volume.switchmute {
+				display: none;
+			}
+			
+			#player_dial_volume {
+				width: 0;
+				height: 16px;
+				position: absolute;
+				margin-top: 23px;
+				cursor: pointer; 
+				background-color: $light_color;
+			}
+		}
+		
+		#player_track_replay {
+	
+			width: 80px;
+			height: $box_band_height;
+			float: left; 
+			text-align: center;
+			margin-left: 10px;
+			
+			#random {
+				@extend .button;
+				width: 40px;
+				height: $box_band_height;
+				overflow: hidden;
+				color: $light_color;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				
+				font-size: 3em;
+				vertical-align: middle;
+				line-height: $box_band_height;
+				float: left;
+				&:before {
+					content: "c";
+				}
+			}
+			#random.switch {
+				color: adjust-lightness(#c5188d,30);
+			}
+			
+			#replay {
+				@extend .button;
+				width: 40px;
+				height: $box_band_height;
+				overflow: hidden;
+				color: $light_color;
+				@include font-smoothing(on);
+				font-family: 'virgin';
+				font-size: 3em;
+				vertical-align: middle;
+				line-height: $box_band_height;
+				float: left;
+				&:before {
+					content: "b";
+				}
+			}
+			
+			#replay.switch {
+				color: adjust-lightness(#c5188d,30); 
+			}
+		}
+		
+		#content_save {
+			
+			width: 170px;
+			height: $box_band_height;
+			float: right; 
+			
+			#player_delete {
+				width: 70px;
+				height: $box_band_height;
+				overflow: hidden;
+				float: right;
+				
+				#btn_delete {
+					@extend .button;
+					width: 40px;
+					text-align: center;
+					height: $box_band_height;
+					line-height: $box_band_height * 1.1;
+					cursor: pointer; 
+					overflow: hidden;
+					font-size: 3em;
+					@include font-smoothing(on);
+					font-family: 'virgin';
+					color: $light_color;
+					&:before {
+						content: "g";
+					}
+				}
+				
+				#btn_delete.switch {
+					color: adjust-lightness(#c5188d,30);
+				}
+				
+				p {
+					@extend .button;
+					@include border-radius(12px);
+					font-size: 0.7em;
+					margin-top: 19px;
+					width: 24px;
+					height: 24px;
+					color: $bg_color;
+					background-color: $light_color;
+					text-align: center;
+					line-height: 24px;
+				}
+			}
+			
+			#player_save {
+				width: 90px;
+				height: $box_band_height;
+				overflow: hidden;
+				float: left;
+				
+				#btn_save {
+					@extend .button;
+					text-align: center;
+					width: 30px;
+					height: 60px;
+					line-height: $box_band_height * 1.1;
+					vertical-align: middle;
+					cursor: pointer; 
+					@include font-smoothing(on);
+					font-family: 'virgin';
+					font-size: 3em;
+					overflow: hidden;
+					color: $light_color;
+					&:before {
+						content: "k";
+					}
+				}
+				
+				#btn_save.switch {
+					color: adjust-lightness(#c5188d,30);
+				}
+				
+				/*a {
+					@include border-radius(3px);
+					border: solid 1px $light_color;
+					color: $light_color;
+					text-decoration: none;
+					display: block;
+					width: 100px;
+					line-height: 20px;
+					margin-top: 20px;
+					text-align: center;
+					font-size: 0.7em;
+					float: left;
+				}
+				
+				a:active {
+					
+				}*/
+				
+				#btn_new_playlist {
+					@include border-radius(3px);
+					background: white;
+					padding: 2px 6px;
+					color: #c5188d;
+					text-transform: none;
+					margin-top: 22px;
+					float: left;
+					@include text-shadow(rgba(black, 0) 0 0 0);
+					
+					font: {
+						family: 'open', Arial, serif;
+						size: .8em;
+					}
+					
+					&:hover {
+						background: #c5188d;
+						color: white;
+					}
+				}
+				
+				#btn_new_playlist.switchmute { 
+					display: none;
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+}
+
+@media only screen and (max-width: 1263px){
+	
+	#player {
+		
+		#content_player {
+
+			#content_bars {
+				/*width: $content_bars_small;*/
+			  
+				#player_track_name {
+					width: $content_bars_small;
+					overflow: hidden;
+				}
+				
+				#player_track_time {
+					margin-left: $content_bars_small - 10;
+				}
+				
+				#player_back_track, #player_front_track, #player_loader_track {
+					/*width: $content_bars_small - 8;*/
+				}
+				
+			}
+		}
+	}
+}
+
+@media (max-width: $media-width-medium){
+	
+	#player {
+		
+		height: $box_band_height * 2;
+		
+		#content_player {
+			height: $box_band_height * 2;
+			
+			#player_content_cover_name {
+				width: 100%;
+				max-width: 100%;
+				float: left;
+			}
+			
+			width: auto;
+			
+			#left_buttons {
+				margin: 0 10px;
+				
+				#player_preloader {
+					bottom: -2px;
+				}
+			}
+
+			#content_bars {
+				width: 100%;
+				height: 4px;
+				margin: 0;
+				position: absolute;
+				bottom: $box_band_height - 2;
+				
+				#player_back_track, #player_front_track, #player_loader_track {
+					width: 100%;
+					height: 4px;
+					margin: 0;
+				}
+				
+				#player_front_track {
+					width: 0;
+				}
+				
+				#player_time {
+					display: none;
+				}
+				
+				/* Tiempo total del track --------------------------------------------------------- */
+				 
+				#player_track_time {
+					display: none;
+				}
+				
+				#player_dial_track { 
+					display: none;
+				}
+				
+			}
+			
+			#content_volume {
+				display: none;
+			}
+			
+			#player_track_replay {
+				margin-left: 0;
+				margin-right: 10px;
+				float: right;
+			}
+			
+			#content_save {
+				width: 60px;
+				margin-left: 0;
+				float: right;
+				/*display: none;*/
+				#player_save {
+					display: none;
+				}
+			}
+
+		}
+	}
+}

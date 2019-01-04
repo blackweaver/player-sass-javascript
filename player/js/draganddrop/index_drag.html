@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Drag and Drop</title>
+<style type="text/css">
+	body { margin: 0; }
+	#green { width: 100%; background: green; height: 100px; }
+	.red { float: left; margin-left: 5px; text-align: center; vertical-align: middle; line-height: 100px; color: white; font-size: 1em; }
+	.red a { color: white; }
+	.red, #black { background: red; width: 100px; height: 100px; }
+	.red a, #black a { display: block; width: 100px; height: 100px; }
+	#black { position: absolute; top: 300px; left: 500px; background: black; }
+	#black a { color: white; text-align: center; vertical-align: middle; line-height: 100px; color: white; font-size: 1em; }
+	
+	.newblock { position: absolute; background: red; color: black; text-align: center; line-height: 30px; vertical-align: middle; font-size: 2em; width: 30px; height: 30px; z-index: 1000; display: block; }
+	
+	.relative_block { position: relative; }
+	.absolute_block { position: absolute; }
+	.display_none { display: none; }
+	.newblock_active { background: yellow; }
+	.border_left { border-left: 5px solid yellow; margin-left: 0; }
+	.border_right { border-right: 5px solid yellow; margin-left: 5px; }
+
+</style>
+<script type="text/javascript" src="../js/utilities.js"></script>
+</head>
+
+<body>
+<div id="green">
+    <div class="red"><a rel="Da Vinci" href="javascript:;"></a></div>
+    <div class="red"><a rel="Miguel Angel" href="javascript:;"></a></div>
+    <div class="red"><a rel="Picasso" href="javascript:;"></a></div>
+    <div class="red"><a rel="El Greco" href="javascript:;"></a></div>
+    <div class="red"><a rel="Velazquez" href="javascript:;"></a></div>
+    <div class="red"><a rel="Mondrian" href="javascript:;"></a></div>
+</div>
+<div id="black">
+<a rel="Torres García" href="javascript:;"></a>
+</div>
+<script type="text/jscript">
+	
+	//Contenedor general, acá guardo momentaneamente los tracks arrastrados
+	var content = document.getElementsByTagName("body")[0];
+	//Contenedor de la playlist, acá están todos los tracks
+	var green = document.getElementById("green");
+	//Array con cada uno de los tracks de la playlist
+	var red = green.getElementsByTagName("div");
+	//Elmento a arrastrar a la playlist
+	var black = document.getElementById("black");
+	//Asigno el nombre dentro de la caja
+	black.getElementsByTagName("a")[0].innerHTML = black.getElementsByTagName("a")[0].rel;
+	//Objeto que almacena las propuiedades del track actual a ser posicionado
+	var current_track = new Object();
+	//Variable que almacena el elmento que muestra el arrastre de un nuevo track a la playlist (+)
+	var newblock = null;
+	//Elemento que almacena la caja con el track que quiero cambiar de posición en la playlist
+	var current_block = null;
+	//Ubicación actual del ratón en el eje X
+	var posx = 0;
+	//Elemento provisorio que guarda la caja del track que luego de ser seleccionada se va a posicionar
+	var elementDrag = null;
+	
+	//Asigno el evento de bajada del ratón para el track fuera de la playlist
+	black.onmousedown = mousedown;
+	//Asigno evento de subida de ratón
+	document.onmouseup = mouseup;
+	//Asigno evento de movimiento del ratón
+	document.onmousemove = mouseMove;
+	
+	//Recorro la playlist y asigno propiedades a todos los tracks, al inicio y cada vez que altero dicha playlist 
+	setCorrectNumbers();
+	
+	//Bajada del ratón para el track externo
+	function mousedown(ev){
+		//Dejo sin efecto ningún elmento para posicionar en la playlist
+		current_track.num = null;
+		//Creo un DIV para mostrar el estatus de arrastre (+)
+		newblock = document.createElement("div");
+		//Le asigno diseño
+		newblock.className = "newblock display_none";
+		//Le asigno el nombrepara luego traspasarlo cuando lo coloque
+		newblock.name = this.getElementsByTagName("a")[0].rel;
+		//Inserto el bloque momentáneamente en el contenedor del player
+		content.insertBefore(newblock,content.childNodes[0]);
+		//Lo oculto hasta tanto haya movido el mouse
+		//newblock.style.display = "none";
+		return false;
+	}
+	
+	function setCorrectNumbers(){
+		//Recorro todas las cajas de tracks
+		for(var i=0;i<red.length;i++){
+			//Asigno los nombres de la propiedad rel dentro de cada caja
+			red[i].getElementsByTagName("a")[0].innerHTML = red[i].getElementsByTagName("a")[0].rel;
+			//Asigno un ID para cada caja con la posición de la misma en el array
+			red[i].setAttribute('id',i);
+			//Asigno a cada elemento una propiedad con el mismo ID de su caja
+			red[i].num = i;
+			//Defino un objeto para cada elemento para poder ser manejado externamente
+			elementDrag = red[i];
+			//Asigno por defecto la propiedad status para saber si la caja arrastrada puede ser colocada o no
+			elementDrag.status = false;
+			//Defino el evento de bajada de ratón para cada caja de la playlist así las puedo arrastrar
+			red[i].onmousedown = function(){
+				//Tomo el elemento al que quiero arrastrar y lo activo para poder ser posicionado
+				this.status = true;
+				elementDrag = this;
+				return false;
+			}
+		}
+	}
+	
+	function mouseup(ev){
+		//Para todos los elementos externos al player, cuando haya un ID existente en un track para posicionar, elimino el DIV provisorio e inserto el DIV arrastrado
+		if(newblock && !current_block){
+			if(current_track.num != null){
+				insertElement(green,current_track.num);
+			}
+			content.removeChild(content.childNodes[0]);
+		}
+		//Para los elementos de la playlist, cuando no sea un tema externo, en el momento de que haya un ID existente, coloco el elemento arrastrado en la posición indicada
+		if(current_block && !newblock){
+			if(current_track.num != null){
+				placeElement(current_block,current_track.num);
+			}
+		}
+		//Vuelvo a dejar los elementos transidorios nulos para que no se posicione ningún otro elmento no querido
+		newblock = null;
+		current_block = elementDrag = null;
+		//Vuelvo a regenerar el array de elementos de la playlist para que se registren los nuevos elementos arrastrados
+		setCorrectNumbers();
+		return false;
+	}
+	
+	//Función que inserta los bloques que se arrastran desde fuera de la playlist
+	function insertElement(content,position){
+		//Creo el elemento a insertar en la playlist
+		var element = document.createElement("div");
+		//Creo un vínculo dentro de la caja
+		var vinculo = document.createElement("a");
+		//Coloco un href
+		vinculo.setAttribute('href',"javascript:;");
+		//Defino su rel con el nombre del track arrastrado
+		vinculo.setAttribute('rel',current_track.name);
+		//Creo un texto para la caja
+		var tNode = document.createTextNode(current_track.name);
+		//Adjunto los elementos
+		vinculo.appendChild(tNode);
+		element.appendChild(vinculo);
+		//Asigno la clase que diseña la caja
+		element.className = "red";
+		//Si el ratón aparece a la derecha del último track
+		if(compareXCoords(posx,red[red.length - 1])){
+			//elimino el borde de posicionamiento
+			red[red.length - 1].className = "red";
+			//Inserto el elemento al final
+			content.appendChild(element);
+			//De lo contrario
+		}else{
+			//Elimino el borde de posicionamiento en el elemento seleccionado
+			red[position].className = "red";
+			//Inserto el elemento inmediatamente antes del elemento seleccioado de la playlist
+			content.insertBefore(element,red[position]);
+		}
+	}
+	
+	//Función que vuelve a colocar el elemento que se cambia de lugar en la playlist
+	function placeElement(element,position){
+		//Si el ratón se encuentra a la derecha del úlitmo elemento...
+		if(compareXCoords(posx,red[red.length - 1])){
+			//Elimino el borde de colocación
+			red[red.length - 1].className = "red";
+			//Coloco la caja arrastrada en el final de la playlist
+			green.appendChild(element);
+		}else{
+			//De lo contrario elimino el borde del elemento seleccionado
+			red[position].className = "red";
+			//Coloco el elemento inmediatamente antes del seleccionado
+			green.insertBefore(element,red[position]);
+		}
+		
+		//Establezco los estilos iniciales para las cajas colocadas en la playlist
+		
+		current_block.className = "red relative_block";
+		current_block.style.top = "auto";
+		current_block.style.left = "auto";
+	}
+	
+	//Función que se ejecuta mientras se mueve el mouse
+	function mouseMove(ev){
+		//Capturo el evento
+		ev = ev || window.event;
+		//Almaceno el valor de la cordinada X del ratón
+		posx = mouseCoords(ev).x;
+		//Si existe y está siendo cliqueado un elemento de la playlist
+		if(elementDrag.status){
+			//Remuevo el elemento de su posición
+			green.removeChild(elementDrag);
+			//Agrego el elmento provisoriamente
+			content.appendChild(elementDrag);
+			//Asigno el elemento despecado de la playlist al objeto "current_block" para ser posteriormente ubicado
+			current_block = elementDrag;
+			//Oculto el elemento que se encuentra provisoriamente esperando
+			//current_block.style.display = "none";
+			current_block.className = "red display_none";
+			//Asigno el número de posición al elemento actual clickqueado
+			current_block.num = current_track.num = Number(elementDrag.num);
+			//Ya asignados las propiedades del elemento actual se vuelve a asignar el estado como no activo
+			current_block.status = elementDrag.status = false;
+		}
+		
+		//Si el elmento seleccionado es externo...
+		if(newblock && !current_block){
+			//Asigno valores para visualizar el elemento que muestra que se está arrastrando un track a la playlist
+			newblock.className = "newblock";
+			//Ubico ese elemento junto a la posición del mause
+			newblock.style.top = (mouseCoords(ev).y - (getSize(newblock).h / 2)) + "px";
+			newblock.style.left = (mouseCoords(ev).x - (getSize(newblock).w / 2)) + "px";
+			//Recorro los elementos de la playlist para saber con cuál de ellos se está haciendo contacto...
+			for(var i=0;i<red.length;i++){
+				//Si el elmento arrastrado está en contacto con un elmento de la plylist...
+				if(detectCollision(red[i],newblock)){
+					//Asigno toda la información del elemento seleccioado al acutal para insertar luego
+					current_track.num = i;
+					current_track.name = newblock.name;
+					//Marco la zona donde se puede depositar el nuevo track o caja y cambio el estado del elemento de arrastre
+					newblock.className = "newblock newblock_active";
+					red[i].className = "red border_left";
+				}else{
+					//Si no colisiona vuelvo a dejar los tracks o cajas como antes
+					red[i].className = "red";
+				}
+			}
+			
+			//En caso de colisionar el ratón con el fondo de la zona de playlist...
+			if(detectCollision(green,newblock)){
+				//Si estoy arrastrando un track y el ratón se encuentra a la derecha del último track de la playist...
+				if(compareXCoords(posx,red[red.length - 1])){
+					//Marco el borde a la derecha del último
+					red[red.length - 1].className = "red border_right";
+					newblock.className = "newblock newblock_active";
+				}
+				//Si no existe un id de track seleccioado es porque no hubo colisión con un track de la playist...
+				if(current_track.num == null){
+					//Asigno la última posicion del array al track
+					current_track.num = red.length;
+					//Asigno el nombre de la caja al track
+					current_track.name = newblock.name;
+					//Marco el elemento de arrastre externo como activo pronto para insertar un track
+					newblock.className = "newblock newblock_active";
+				}
+			}else{
+				//Si salgo de la franja de playlist vuelvo a establecer el track actual como nulo
+				current_track.num = null;
+				//El nombre como no existente
+				current_track.name = "";
+				//Elimino el borde marcado
+				newblock.className = "newblock";
+			}
+			
+		}
+		
+		//Si el arrastre es de un track existente en la playlist...
+		if(current_block && !newblock){
+			//Despego el track de la playlist y hago que siga el ratón
+			
+			current_block.className = "red absolute_block";
+			
+			current_block.style.top = (mouseCoords(ev).y - (getSize(current_block).h / 2)) + "px";
+			current_block.style.left = (mouseCoords(ev).x - (getSize(current_block).w / 2)) + "px";
+			//Recorro la tradición 
+			for(var i=0;i<red.length;i++){
+				//Si encuentro colisión con un track...
+				if(detectCollision(red[i],current_block)){
+					//Asigno la posición del track al ID
+					current_track.num = i;
+					//Marco el borde de donde soltar
+					red[i].className = "red border_left";
+				}else{
+					//Desmarco los bordes
+					red[i].className = "red";
+				}
+			}
+			//Si encuentor colisión con la banda de la playist
+			if(detectCollision(green,current_block)){
+				//Y la posición del ratón está a la derecha del úlitmo track...
+				if(compareXCoords(posx,red[red.length - 1])){
+					//Marco el borde para soltar a la derecha del último track
+					red[red.length - 1].className = "red border_right";
+				}
+				//Si no existe ningún track asignado defino uno al final
+				if(current_track.num == null){
+					current_track.num = red.length;
+				}
+			}
+		}
+		return false;
+	}
+
+</script>
+</body>
+</html>
